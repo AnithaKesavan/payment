@@ -1,0 +1,111 @@
+<div class="pt-lg-4 text-center">
+    <h3> Payment </h3>
+</div>
+
+
+<div class="row m-4 justify-content-center">
+    <mat-card>
+        <form [formGroup]="paymentForm">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <div class="col-xl-12 col-lg-12 col-md-12  col-sm-12 col-xs-12 mt-3">
+                    <mat-form-field class="example-form-field">
+                        <mat-label>Name On Card</mat-label>
+                        <input matInput type="text" autocomplete="off" required id="cardHolderName"
+                            formControlName="cardHolderName" placeholder="Please Enter the name on card" maxlength="30"
+                            minlength="3"
+                            [ngClass]="{'form-error':paymentForm.controls.cardHolderName.invalid && (submitted || paymentForm.controls.cardHolderName.touched)}">
+                        <mat-error
+                            *ngIf="paymentForm.controls['cardHolderName'].errors?.required && (submitted || paymentForm.controls['cardHolderName'].touched)">
+                            Card Name is Required</mat-error>
+                    </mat-form-field>
+
+                </div>
+                <div class="row pl-3 pt-3 example-form-field">
+                    <mat-form-field class="example-full-width col-8 pl-3">
+                        <mat-label> Card Number</mat-label>
+                        <input matInput type="text" autocomplete="off" required id="cardNumber" maxlength="16"
+                            minlength="16" formControlName="cardNumber" placeholder="Please Enter the Number on card"
+                            [ngClass]="{'form-error':paymentForm.controls.cardNumber.invalid && (submitted || paymentForm.controls.cardNumber.touched)}">
+                        <mat-error
+                            *ngIf="paymentForm.controls['cardNumber'].errors?.required && (submitted || paymentForm.controls['cardNumber'].touched)">
+                            Card Number is Required</mat-error>
+                        <mat-error
+                            *ngIf="paymentForm.controls['cardNumber'].errors?.minlength && (submitted || paymentForm.controls['cardNumber'].touched)">
+                            Invalid Card Number</mat-error>
+                        <mat-icon matPrefix>payment</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width col-2">
+                        <mat-label>Expiry</mat-label>
+                        <input matInput type="text" autocomplete="new-password" required id="expiry"
+                            formControlName="expiry" placeholder="MM/YY" appExpiryMask maxlength="5"
+                            [ngClass]="{'form-error':paymentForm.controls.expiry.invalid && (submitted || paymentForm.controls.expiry.touched)}">
+                        <mat-error
+                            *ngIf="paymentForm.controls['expiry'].errors?.required && (submitted || paymentForm.controls['expiry'].touched)">
+                            Required</mat-error>
+                        <mat-error
+                            *ngIf="paymentForm.controls['expiry'].errors?.minlength && (submitted || paymentForm.controls['expiry'].touched)">
+                            Invalid</mat-error>
+                        <mat-error
+                            *ngIf="paymentForm.controls['expiry'].errors?.expiryInvalid && (submitted || paymentForm.controls['expiry'].touched)">
+                            Invalid Expiry Year</mat-error>
+
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width col-2">
+                        <mat-label>CVV</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" autocomplete="new-password" id="cvv"
+                            formControlName="cvv" maxlength="3" minlength="3"
+                            [ngClass]="{'form-error':paymentForm.controls.cvv.invalid && (submitted || paymentForm.controls.cvv.touched)}">
+                        <mat-error
+                            *ngIf="paymentForm.controls['cvv'].errors?.required && (submitted || paymentForm.controls['cvv'].touched)">
+                            Required</mat-error>
+                        <mat-error
+                            *ngIf="paymentForm.controls['cvv'].errors?.minlength && (submitted || paymentForm.controls['cvv'].touched)">
+                            Must be 3 character</mat-error>
+                        <mat-icon matSuffix (click)="hide = !hide" class="cursor">
+                            {{hide ? 'visibility_off' : 'visibility'}}
+                        </mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-md-12  col-sm-12 col-xs-12 pt-1">
+                    <mat-form-field class="example-form-field">
+                        <mat-label>Amount</mat-label>
+                        <input matInput type="text" autocomplete="off" required id="amount" formControlName="amount"
+                            placeholder="Please Enter the Amount" maxlength="10" numberOnly
+                            [ngClass]="{'form-error':paymentForm.controls.amount.invalid && (submitted || paymentForm.controls.amount.touched)}">
+                        <span matPrefix>$&nbsp;</span>
+                        <mat-error
+                            *ngIf="paymentForm.controls['amount'].errors?.required && (submitted || paymentForm.controls['amount'].touched)">
+                            Amount is Required</mat-error>
+                        <mat-error
+                            *ngIf="paymentForm.controls['amount'].errors?.min && (submitted || paymentForm.controls['amount'].touched)">
+                            Invalid Amount </mat-error>
+                    </mat-form-field>
+
+                </div>
+
+                <div class="row pl-3 pr-2 pt-2">
+                    <div class="col-12">
+                        <mat-checkbox class="example-margin" color="primary" formControlName="terms"
+                            [ngClass]="{'form-error':paymentForm.controls.terms.invalid && (submitted || paymentForm.controls.terms.touched)}">
+                            I accept the terms and
+                            conditions of use.
+                        </mat-checkbox>
+                        <mat-error
+                            *ngIf="paymentForm.controls['terms'].errors?.required && (submitted || paymentForm.controls['terms'].touched)">
+                            Please Accpet the terms and conditions</mat-error>
+                    </div>
+                    <div class="col-12 text-center pb-4 pt-1">
+                        <button mat-raised-button color="primary" type="submit" class="full-width mt-4"
+                            (click)="onSubmit()">Pay
+                            Now</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </mat-card>
+</div>
